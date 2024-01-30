@@ -1,129 +1,327 @@
-function decode(message_file) {
-  const fs = require("fs");
-  const data = fs.readFileSync(message_file, "utf8");
+function decode(data) {
   const lines = data.split("\n").filter(Boolean);
   const message_words = [];
-  let current_line = 1;
-  let current_num = 1;
-  for (const line of lines) {
-    const [num, word] = line.split(" ");
-    if (parseInt(num) == current_num) {
-      message_words.push(word);
-      current_line++;
-      current_num = (current_line + 1) / 2;
+  lines.forEach((line) => {
+    [index, word] = line.split(" ");
+    message_words[parseInt(index)] = word;
+  });
+
+  let line_length = 1;
+  let line_pos = 0;
+  let output_string = "";
+  for (let i = 1; i < message_words.length; i++) {
+    output_string += message_words[i];
+    line_pos++;
+    if (line_pos >= line_length) {
+      output_string += "\n";
+      line_pos = 0;
+      line_length++;
+    } else {
+      output_string += " ";
     }
   }
-  return message_words.join(" ");
+  return output_string;
 }
 
-const decoded_message = decode("message.txt");
-console.log(decoded_message);
+let content = `195 land
+91 sun
+266 too
+120 huge
+3 dont
+140 such
+69 noun
+227 student
+225 brown
+263 complete
+174 play
+162 cook
+40 yard
+253 clock
+80 would
+202 plain
+269 excite
+109 fire
+207 wish
+138 cool
+295 child
+128 past
+29 colony
+51 oil
+34 dog
+211 back
+226 money
+11 kind
+238 open
+101 finger
+74 touch
+114 are
+123 dad
+142 am
+165 modern
+274 meant
+150 ocean
+167 pitch
+18 suit
+166 town
+28 east
+148 over
+81 group
+185 good
+184 kind
+1 down
+273 band
+235 especially
+110 organ
+276 of
+59 fire
+79 out
+182 area
+292 touch
+284 happen
+258 sat
+71 electric
+163 wrote
+65 buy
+10 lot
+129 stop
+297 corn
+24 where
+133 check
+239 live
+135 best
+171 hold
+130 cause
+175 grand
+241 present
+87 indicate
+161 counter
+137 we
+210 like
+93 visit
+47 state
+220 morning
+233 true
+183 are
+280 ball
+288 history
+5 seat
+127 rain
+200 less
+243 glass
+55 tone
+111 song
+143 fair
+270 element
+186 speed
+112 produce
+125 quotient
+246 sand
+156 begin
+136 moment
+23 offer
+149 probable
+299 all
+134 necessary
+298 post
+44 cent
+205 happen
+76 speech
+83 object
+21 silver
+14 third
+157 crease
+176 wait
+90 triangle
+58 idea
+64 clothe
+22 young
+108 discuss
+102 field
+57 company
+221 capital
+272 compare
+158 chart
+139 possible
+94 written
+27 remember
+104 mile
+39 cold
+168 lady
+259 felt
+285 against
+228 skin
+56 prepare
+267 he
+84 card
+240 organ
+154 object
+255 our
+19 major
+73 discuss
+214 system
+17 hole
+121 above
+281 they
+98 produce
+35 straight
+264 level
+245 though
+85 modern
+260 dry
+300 bought
+291 milk
+190 make
+118 show
+95 middle
+88 center
+61 blood
+46 speak
+7 prove
+249 select
+13 power
+106 come
+203 brown
+4 experiment
+198 strong
+170 hurry
+283 touch
+68 reach
+37 case
+97 beat
+189 over
+290 dry
+144 hill
+113 company
+26 opposite
+15 work
+48 field
+237 felt
+41 prepare
+152 now
+265 his
+116 stay
+160 toward
+271 observe
+244 time
+78 stop
+251 possible
+33 card
+268 prepare
+43 current
+224 compare
+115 neighbor
+213 thus
+262 include
+124 copy
+66 bit
+9 stead
+92 does
+229 general
+178 solve
+275 glad
+36 duck
+287 offer
+30 happen
+286 ball
+119 bread
+169 like
+201 machine
+63 come
+191 any
+196 band
+209 it
+278 section
+199 close
+25 heavy
+155 produce
+86 got
+231 possible
+117 insect
+206 way
+147 before
+222 men
+54 bird
+179 ease
+67 trade
+293 winter
+208 am
+141 repeat
+212 first
+230 to
+2 each
+126 guide
+131 column
+252 single
+204 remember
+38 wild
+247 major
+42 coast
+82 class
+45 done
+172 jump
+49 sister
+279 feel
+242 check
+250 fire
+6 nine
+151 indicate
+60 parent
+99 whole
+159 her
+53 the
+89 temperature
+132 design
+164 big
+12 skill
+192 friend
+188 hit
+289 wait
+296 instant
+32 blow
+181 about
+236 chick
+219 answer
+173 man
+180 material
+234 current
+223 think
+256 print
+282 nor
+277 better
+103 example
+194 people
+72 drink
+107 gun
+193 together
+254 cost
+96 require
+197 or
+215 people
+218 planet
+257 ease
+8 ready
+75 enough
+77 sugar
+105 deal
+16 with
+146 us
+216 share
+145 office
+187 protect
+52 low
+248 thus
+100 farm
+70 oxygen
+20 fire
+122 force
+232 select
+217 paragraph
+177 always
+153 poem
+31 chick
+50 planet
+62 fact
+294 moment
+261 term`;
 
-// function decode(message_file) {
-//   const fs = require("fs");
-//   const data = fs.readFileSync(message_file, "utf8");
-//   const lines = data.split("\n").filter(Boolean);
-//   const message_words = [];
-//   const pyramid = [];
-//   let current_line = 1;
-//   let current_num = 1;
-//   for (const line of lines) {
-//     const [num, word] = line.split(" ");
-//     pyramid.push(parseInt(num));
-//     if (parseInt(num) === current_num) {
-//       message_words.push(word);
-//       current_line++;
-//       current_num = (current_line * (current_line + 1)) / 2;
-//     }
-//   }
-//   const message = [];
-//   for (let i = pyramid.length - 1; i >= 0; i--) {
-//     if (pyramid[i] === current_num - 1) {
-//       message.unshift(message_words[i]);
-//       current_num--;
-//     }
-//   }
-//   return message.join(" ");
-// }
-
-// const decoded_message = decode("message.txt");
-// console.log(decoded_message); //
-
-// // This function takes a file name as an argument and returns a decoded message as a string
-// function decode(message_file) {
-//   // Import the fs module
-//   const fs = require("fs");
-
-//   // Read the file content as a string
-//   let content = fs.readFileSync(message_file, "utf8");
-
-//   // Split the content by line breaks and store each line in an array
-//   let lines = content.split("\n");
-
-//   // Create an empty object to store the words and their corresponding numbers
-//   let words = {};
-
-//   // Loop through each line
-//   for (let line of lines) {
-//     // Split the line by space and store the number and the word in variables
-//     let [number, word] = line.split(" ");
-
-//     // Convert the number to an integer
-//     number = parseInt(number);
-
-//     // Store the word and the number as a key-value pair in the object
-//     words[number] = word;
-//   }
-
-//   // Create an empty array to store the numbers in the pyramid order
-//   let pyramid = [];
-
-//   // Define a variable to keep track of the current row in the pyramid
-//   let row = 1;
-
-//   // Define a variable to keep track of the current index in the array
-//   let index = 0;
-
-//   // Loop until all the numbers are added to the array
-//   while (index < Object.keys(words).length) {
-//     // Create an empty array to store the numbers in the current row
-//     let row_array = [];
-
-//     // Loop through the numbers in the current row
-//     for (let i = 0; i < row; i++) {
-//       // Get the number at the current index and add it to the row array
-//       let number = Object.keys(words)[index];
-//       row_array.push(number);
-
-//       // Increment the index
-//       index++;
-//     }
-
-//     // Add the row array to the pyramid array
-//     pyramid.push(row_array);
-
-//     // Increment the row
-//     row++;
-//   }
-
-//   // Create an empty string to store the decoded message
-//   let message = "";
-
-//   // Loop through the pyramid array from the last element to the first
-//   for (let i = pyramid.length - 1; i >= 0; i--) {
-//     // Get the row array at the current index
-//     let row_array = pyramid[i];
-
-//     // Loop through the row array
-//     for (let number of row_array) {
-//       // Get the word that corresponds to the number and add it to the message
-//       let word = words[number];
-//       message += word + " ";
-//     }
-//   }
-
-//   // Trim the trailing space and return the message
-//   return message.trim();
-// }
-// // Call the decode function and log the result
-// console.log(decode("message.txt"));
+console.log(decode(content));
